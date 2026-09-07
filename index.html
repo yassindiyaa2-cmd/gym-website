@@ -3,315 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TITAN GYM | منصة الكورسات الاحترافية</title>
-    <!-- Tailwind CSS CDN -->
+    <title>🔥 OLYMPUS GYM | أقوى منصة تدريب</title>
+    <!-- خطوط جوجل (كايرو) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind Config & Custom CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: { neon: '#ff003c', darkBg: '#050505', glass: 'rgba(20, 20, 20, 0.7)' }
+                }
+            }
+        }
+    </script>
     <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #ef4444; }
+        body { background-color: #050505; color: #fff; overflow-x: hidden; }
+        /* تأثيرات النيون والخلفية الزجاجية */
+        .glass-panel { background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 0, 60, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        .neon-text { text-shadow: 0 0 10px rgba(255, 0, 60, 0.8), 0 0 20px rgba(255, 0, 60, 0.4); }
+        .neon-border { box-shadow: 0 0 15px rgba(255, 0, 60, 0.3); border: 1px solid #ff003c; }
+        .neon-border:hover { box-shadow: 0 0 25px rgba(255, 0, 60, 0.7); transform: translateY(-5px); transition: all 0.3s ease; }
+        
+        /* تأثير الكتابة في الشات */
+        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        /* سكرول بار احترافي */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #ff003c; border-radius: 10px; }
+
+        /* حركة الخلفية */
+        .bg-animated { background: radial-gradient(circle at 50% 50%, #1a0005 0%, #050505 100%); background-size: 200% 200%; animation: gradientBG 10s ease infinite; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white">
+<body class="bg-animated min-h-screen flex flex-col selection:bg-neon selection:text-white">
 
-    <!-- Navbar -->
-    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="router('home')">
-                <div class="bg-red-600 p-2 rounded-xl text-white shadow-lg shadow-red-600/30">
-                    <i data-lucide="dumbbell" class="w-6 h-6"></i>
-                </div>
-                <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-white via-slate-200 to-red-500 bg-clip-text text-transparent">TITAN GYM</span>
+    <!-- شريط التنقل (الناف بار الزجاجي) -->
+    <header class="glass-panel sticky top-0 z-50 rounded-b-3xl mx-2 mt-2">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                <div class="bg-neon p-2 rounded-xl animate-pulse"><i data-lucide="flame" class="text-white w-7 h-7"></i></div>
+                <h1 class="text-3xl font-black tracking-tighter neon-text">OLYMPUS<span class="text-white font-light">GYM</span></h1>
             </div>
-
-            <!-- Nav Links -->
-            <nav class="flex items-center space-x-2 space-x-reverse">
-                <button onclick="router('home')" class="px-4 py-2 rounded-lg font-semibold transition hover:bg-slate-800 flex items-center gap-2">
-                    <i data-lucide="home" class="w-4 h-4"></i> الرئيسية
+            <nav class="flex gap-4">
+                <button onclick="navigate('home')" class="hover:text-neon transition font-bold flex gap-2 items-center"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> الكورسات</button>
+                <button onclick="navigate('chat')" class="bg-neon/10 text-neon hover:bg-neon hover:text-white border border-neon/50 px-5 py-2 rounded-xl transition font-bold flex gap-2 items-center relative">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> كابتن أونلاين
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_#22c55e] animate-ping"></span>
+                    <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></span>
                 </button>
-                <button onclick="router('chat')" class="px-4 py-2 rounded-lg font-semibold transition hover:bg-slate-800 flex items-center gap-2 relative">
-                    <i data-lucide="message-square" class="w-4 h-4"></i> الشات مع الكابتن
-                    <span id="chat-badge" class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping hidden"></span>
-                </button>
-                
-                <!-- Secret Admin Trigger (Hidden / Discrete Button) -->
-                <button onclick="router('admin-auth')" title="Secret Access" class="p-2 text-slate-700 hover:text-red-500 transition rounded-full opacity-40 hover:opacity-100">
-                    <i data-lucide="shield-lock" class="w-4 h-4"></i>
-                </button>
+                <!-- زر الإدارة السري (أيقونة عين مخفية) -->
+                <button onclick="navigate('admin-login')" class="opacity-10 hover:opacity-100 transition p-2"><i data-lucide="eye" class="w-5 h-5"></i></button>
             </nav>
         </div>
     </header>
 
-    <!-- Main Dynamic Content Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
-
-        <!-- 1. HOME SECTION -->
-        <section id="sec-home" class="space-y-10 animate-fade-in">
-            <div class="text-center space-y-4 max-w-2xl mx-auto">
-                <span class="text-xs font-bold uppercase tracking-widest text-red-500 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">تدريب احترافي أونلاين</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">غير جسمك وحياتك مع أحدث الكورسات التدريبية</h1>
-                <p class="text-slate-400 text-sm md:text-base">اختر البرنامج المناسب لأهدافك واحصل على متابعة يومية مباشرة مع الكابتن.</p>
+    <!-- المحتوى الديناميكي -->
+    <main class="flex-1 max-w-7xl mx-auto w-full p-6 mt-4 relative">
+        
+        <!-- 1. الرئيسية (الكورسات) -->
+        <section id="view-home" class="space-y-12 animate-[fadeIn_0.5s_ease-in]">
+            <div class="text-center space-y-6 mt-10">
+                <div class="inline-block glass-panel px-6 py-2 rounded-full border border-neon/50 text-neon font-bold text-sm tracking-widest mb-4">
+                    🔥 أشرس البرامج التدريبية
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
+                    اصنع <span class="text-neon neon-text">نسختك الأقوى</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">كورسات مصممة بتقنيات علمية حديثة. انضم الآن وابدأ التحول الجذري مع متابعة 24/7.</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-container">
-                <!-- Dynamic Courses rendered via JS -->
-            </div>
+            <!-- الكورسات ستظهر هنا عن طريق الجافاسكربت -->
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20"></div>
         </section>
 
-        <!-- 2. CHAT SECTION -->
-        <section id="sec-chat" class="hidden max-w-3xl mx-auto">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[650px]">
-                <!-- Chat Header -->
-                <div class="bg-slate-800/80 p-4 border-b border-slate-700/50 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
+        <!-- 2. واجهة الشات المتقدمة -->
+        <section id="view-chat" class="hidden h-[75vh] max-w-4xl mx-auto">
+            <div class="glass-panel rounded-3xl h-full flex flex-col overflow-hidden relative shadow-[0_0_30px_rgba(255,0,60,0.1)] border-neon/30">
+                <!-- هيدر الشات -->
+                <div class="bg-black/50 p-5 flex items-center justify-between border-b border-neon/20">
+                    <div class="flex items-center gap-4">
                         <div class="relative">
-                            <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center font-bold text-lg">C</div>
-                            <span class="w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full absolute bottom-0 right-0"></span>
+                            <img src="https://ui-avatars.com/api/?name=Captain&background=ff003c&color=fff&size=100" class="w-12 h-12 rounded-full border-2 border-neon">
+                            <span class="w-3.5 h-3.5 bg-green-500 rounded-full absolute bottom-0 right-0 border-2 border-black"></span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-sm">الكابتن أحمد علي</h3>
-                            <p class="text-xs text-emerald-400">متصل الآن - استجابة سريعة</p>
+                            <h3 class="font-bold text-lg">الكابتن (VIP)</h3>
+                            <p class="text-green-400 text-xs font-bold flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> متصل الآن</p>
                         </div>
                     </div>
-                    <button onclick="clearChatHistory()" class="text-xs text-slate-400 hover:text-red-400 transition flex items-center gap-1">
-                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> مسح السجل
-                    </button>
                 </div>
 
-                <!-- Chat Messages Body -->
-                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar bg-slate-950/50">
-                    <!-- Dynamic Messages -->
+                <!-- منطقة الرسائل -->
+                <div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col">
+                    <!-- الرسائل تضاف هنا -->
                 </div>
 
-                <!-- Chat Input Area -->
-                <form onsubmit="handleSendMsg(event)" class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
-                    <input type="text" id="chat-input" placeholder="اكتب استفسارك للكابتن..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-500 transition text-white">
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-xl transition flex items-center justify-center">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                    </button>
+                <!-- مؤشر الكتابة (مخفي افتراضياً) -->
+                <div id="typing-indicator" class="hidden p-4 ml-auto w-fit mr-6 mb-2">
+                    <div class="glass-panel rounded-2xl p-3 flex gap-1 items-center w-fit border-none">
+                        <span class="w-2 h-2 bg-neon rounded-full typing-dot"></span>
+                        <span class="w-2 h-2 bg-neon rounded-full typing-dot"></span>
+                        <span class="w-2 h-2 bg-neon rounded-full typing-dot"></span>
+                    </div>
+                </div>
+
+                <!-- إدخال الرسالة -->
+                <form onsubmit="sendChat(event)" class="bg-black/60 p-4 border-t border-neon/20 flex gap-3 items-center backdrop-blur-xl">
+                    <button type="button" class="p-3 bg-gray-800 text-gray-400 hover:text-white rounded-xl transition"><i data-lucide="paperclip" class="w-5 h-5"></i></button>
+                    <input type="text" id="chat-input" placeholder="اكتب رسالتك للكابتن هنا..." class="flex-1 bg-gray-900 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-neon transition font-bold" autocomplete="off">
+                    <button type="submit" class="bg-neon hover:bg-red-700 p-4 rounded-xl shadow-[0_0_15px_#ff003c] transition transform hover:scale-105"><i data-lucide="send" class="w-6 h-6 text-white"></i></button>
                 </form>
             </div>
         </section>
 
-        <!-- 3. SECRET ADMIN AUTH SECTION -->
-        <section id="sec-admin-auth" class="hidden max-w-md mx-auto py-12">
-            <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6 text-center">
-                <div class="w-16 h-16 bg-red-500/10 border border-red-500/30 text-red-500 rounded-2xl flex items-center justify-center mx-auto">
-                    <i data-lucide="lock" class="w-8 h-8"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold">منطقة مشفرة - إدارة النظام</h2>
-                    <p class="text-xs text-slate-400 mt-1">أدخل رمز PIN للوصول إلى لوحة التحكم المخفية</p>
-                </div>
-                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-                    <input type="password" id="admin-pin-input" placeholder="••••" maxlength="6" class="w-full text-center text-2xl tracking-widest bg-slate-950 border border-slate-800 rounded-xl p-3 focus:outline-none focus:border-red-500 text-white">
-                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-xl font-bold text-sm transition">تحقق ودخول</button>
-                </form>
+        <!-- 3. الدخول السري للوحة -->
+        <section id="view-admin-login" class="hidden flex items-center justify-center h-[70vh]">
+            <div class="glass-panel p-10 rounded-3xl max-w-sm w-full border border-neon text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-neon shadow-[0_0_20px_#ff003c]"></div>
+                <i data-lucide="fingerprint" class="w-16 h-16 text-neon mx-auto animate-pulse"></i>
+                <h2 class="text-2xl font-black uppercase tracking-widest text-gray-300">SYSTEM OVERRIDE</h2>
+                <input type="password" id="sys-pass" placeholder="ENTER ACCESS CODE" class="w-full bg-black/50 border border-neon/50 text-neon text-center p-4 rounded-xl font-mono text-xl tracking-[0.5em] focus:outline-none focus:border-neon focus:shadow-[0_0_10px_#ff003c]">
+                <button onclick="authAdmin()" class="w-full bg-neon text-white font-black py-4 rounded-xl uppercase tracking-widest hover:shadow-[0_0_20px_#ff003c] transition">Authenticate</button>
             </div>
         </section>
 
-        <!-- 4. SECRET ADMIN DASHBOARD -->
-        <section id="sec-admin-dashboard" class="hidden space-y-8">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+        <!-- 4. لوحة الإدارة الفضائية -->
+        <section id="view-admin-dash" class="hidden space-y-8">
+            <div class="glass-panel p-6 rounded-3xl border border-neon flex justify-between items-center bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
                 <div>
-                    <h2 class="text-2xl font-black text-red-500 flex items-center gap-2">
-                        <i data-lucide="sliders" class="w-6 h-6"></i> لوحة التحكم السرية
-                    </h2>
-                    <p class="text-xs text-slate-400">إدارة الكورسات، المشتركين، والإحصائيات الحية</p>
+                    <h2 class="text-3xl font-black text-neon uppercase">Commander Node</h2>
+                    <p class="text-gray-400 font-mono text-xs mt-1">Live Database Connected // SERVER: IRAQ-01</p>
                 </div>
-                <button onclick="router('home')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition">خروج</button>
+                <button onclick="navigate('home')" class="bg-red-950 text-red-500 border border-red-500 px-6 py-2 rounded-lg font-bold hover:bg-red-600 hover:text-white transition">LOGOUT</button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Add Course Panel -->
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4 h-fit">
-                    <h3 class="font-bold text-lg flex items-center gap-2 text-white"><i data-lucide="plus-circle" class="w-5 h-5 text-red-500"></i> إضافة كورس جديد</h3>
-                    <form onsubmit="handleCreateCourse(event)" class="space-y-3">
-                        <input type="text" id="c-title" placeholder="عنوان الكورس" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:border-red-500 outline-none">
-                        <input type="number" id="c-price" placeholder="السعر ($)" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:border-red-500 outline-none">
-                        <textarea id="c-desc" placeholder="تفاصيل ووصف البرنامج التدريبي..." required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:border-red-500 outline-none h-24 resize-none"></textarea>
-                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-xl font-bold text-sm transition">نشر الكورس فوراً</button>
-                    </form>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- إضافة كورس -->
+                <div class="glass-panel p-8 rounded-3xl border border-gray-800 space-y-5">
+                    <h3 class="font-bold text-xl flex gap-2"><i data-lucide="plus-square" class="text-neon"></i> إطلاق كورس جديد</h3>
+                    <input type="text" id="new-title" placeholder="اسم الكورس" class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:border-neon text-white outline-none">
+                    <input type="number" id="new-price" placeholder="السعر $" class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:border-neon text-white outline-none">
+                    <textarea id="new-desc" placeholder="وصف الكورس" class="w-full bg-black border border-gray-700 p-3 rounded-lg focus:border-neon text-white outline-none h-24"></textarea>
+                    <button onclick="addNewCourse()" class="w-full bg-white text-black hover:bg-neon hover:text-white py-3 rounded-lg font-black transition">Deploy Course</button>
                 </div>
 
-                <!-- Subscribers Table -->
-                <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
-                    <h3 class="font-bold text-lg flex items-center gap-2 text-white"><i data-lucide="users" class="w-5 h-5 text-red-500"></i> بيانات المشتركين</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-right text-sm text-slate-300">
-                            <thead class="bg-slate-950 text-slate-400 text-xs">
+                <!-- المشتركين (جدول مضيء) -->
+                <div class="lg:col-span-2 glass-panel p-8 rounded-3xl border border-gray-800">
+                    <h3 class="font-bold text-xl flex gap-2 mb-6"><i data-lucide="users" class="text-neon"></i> قاعدة بيانات الأبطال</h3>
+                    <div class="overflow-hidden rounded-xl border border-gray-800">
+                        <table class="w-full text-right">
+                            <thead class="bg-gray-900 text-gray-400 font-mono text-sm">
                                 <tr>
-                                    <th class="p-3 rounded-r-lg">المشترك</th>
-                                    <th class="p-3">الكورس</th>
-                                    <th class="p-3">تاريخ الاشتراك</th>
-                                    <th class="p-3 rounded-l-lg">الحالة</th>
+                                    <th class="p-4">ID</th>
+                                    <th class="p-4">الاسم</th>
+                                    <th class="p-4">الكورس</th>
+                                    <th class="p-4">الحالة</th>
                                 </tr>
                             </thead>
-                            <tbody id="subscribers-table-body" class="divide-y divide-slate-800/50">
-                                <!-- Dynamic Subs -->
+                            <tbody id="users-table" class="divide-y divide-gray-800 font-bold bg-black/50">
+                                <!-- البيانات تضاف هنا -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-xs text-slate-500">
-        <p>© 2026 TITAN GYM Engine - جميع الحقوق محفوظة</p>
-    </footer>
-
-    <!-- App Engine Logic JavaScript -->
     <script>
-        // State Store Architecture
-        const DB = {
-            pin: "9988",
-            courses: JSON.parse(localStorage.getItem('titan_courses')) || [
-                { id: 1, title: 'كورس التضخيم الفائق (Hypertrophy)', price: 49, desc: 'جدول تمارين 5 أيام مكثف مع نظام غذائي متكامل لحساب السعرات والماكروز.' },
-                { id: 2, title: 'كورس التنشيف وحرق الدهون', price: 39, desc: 'برنامج تدريب هجين مع خطة الكارديو الذكي للوصول لنسبة دهون أحادية.' }
-            ],
-            messages: JSON.parse(localStorage.getItem('titan_chat')) || [
-                { sender: 'captain', text: 'أهلاً بك يا بطل! جاهز لتبدأ رحلة التحول؟ اكتب لي أي سؤال أو استفسار.', time: '10:00 ص' }
-            ],
-            subscribers: [
-                { name: 'محمد الجبوري', course: 'كورس التضخيم الفائق', date: '2026-09-01', status: 'نشط' },
-                { name: 'علي الحسان', course: 'كورس التنشيف وحرق الدهون', date: '2026-09-05', status: 'نشط' }
-            ]
-        };
+        // تفعيل الأيقونات
+        lucide.createIcons();
 
-        // Router Engine
-        function router(targetSec) {
-            ['home', 'chat', 'admin-auth', 'admin-dashboard'].forEach(sec => {
-                document.getElementById(`sec-${sec}`).classList.add('hidden');
-            });
-            document.getElementById(`sec-${targetSec}`).classList.remove('hidden');
+        // قاعدة البيانات المركزية باستخدام LocalStorage للحفظ الدائم
+        const INIT_COURSES = [
+            { id: 'C01', title: 'الوحش (Bulking Pro)', price: '75', desc: 'تضخيم عضلي صافي. خطة تدريب 6 أيام، دايت ماكروز، ومتابعة هرمونية.' },
+            { id: 'C02', title: 'التقطيع (Shredded)', price: '50', desc: 'نظام حرق دهون متطرف. كارديو HIIT ودايت قليل الكربوهيدرات للوصول لـ 8% دهون.' },
+            { id: 'C03', title: 'جينيتكس (Genetics)', price: '99', desc: 'كورس الـ VIP. تصميم جدول يعتمد على طبيعة جسمك مع مكالمة أسبوعية خاصة.' }
+        ];
+
+        const INIT_USERS = [
+            { id: '#001', name: 'أحمد العراقي', course: 'الوحش (Bulking Pro)', status: 'ACTIVE' },
+            { id: '#002', name: 'مصطفى البغدادي', course: 'التقطيع (Shredded)', status: 'ACTIVE' }
+        ];
+
+        let DB_COURSES = JSON.parse(localStorage.getItem('oly_courses')) || INIT_COURSES;
+        let DB_CHATS = JSON.parse(localStorage.getItem('oly_chats')) || [];
+        let DB_USERS = JSON.parse(localStorage.getItem('oly_users')) || INIT_USERS;
+
+        // نظام التنقل (الراوتر)
+        function navigate(view) {
+            ['home', 'chat', 'admin-login', 'admin-dash'].forEach(v => document.getElementById(`view-${v}`).classList.add('hidden'));
+            document.getElementById(`view-${view}`).classList.remove('hidden');
             
-            if(targetSec === 'chat') renderChat();
-            if(targetSec === 'admin-dashboard') renderAdminData();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(view === 'home') renderCourses();
+            if(view === 'chat') { renderChats(); scrollToBottom(); }
+            if(view === 'admin-dash') renderAdmin();
         }
 
-        // Render Courses
+        // عرض الكورسات (بتأثير النيون)
         function renderCourses() {
-            const container = document.getElementById('courses-container');
-            container.innerHTML = DB.courses.map(c => `
-                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-red-500/50 transition group">
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-start">
-                            <h3 class="font-bold text-lg text-white group-hover:text-red-500 transition">${c.title}</h3>
-                            <span class="text-xl font-black text-red-500">$${c.price}</span>
+            const grid = document.getElementById('courses-grid');
+            grid.innerHTML = DB_COURSES.map(c => `
+                <div class="glass-panel p-8 rounded-3xl neon-border relative group overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-neon/20 rounded-bl-full -z-10 group-hover:scale-150 transition duration-500"></div>
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-neon text-white text-xs font-black px-3 py-1 rounded-md">PRO</span>
+                            <span class="text-3xl font-black text-white">$${c.price}</span>
                         </div>
-                        <p class="text-slate-400 text-xs leading-relaxed">${c.desc}</p>
+                        <h3 class="text-2xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-l from-white to-gray-400 group-hover:text-neon transition">${c.title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">${c.desc}</p>
                     </div>
-                    <button onclick="router('chat')" class="mt-6 w-full bg-slate-800 hover:bg-red-600 text-white py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2">
-                        اشترك وتواصل مع الكابتن <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <button onclick="navigate('chat')" class="w-full bg-white text-black group-hover:bg-neon group-hover:text-white group-hover:shadow-[0_0_20px_#ff003c] py-4 rounded-xl font-black text-lg transition duration-300 flex justify-center gap-2 items-center">
+                        اشترك الآن <i data-lucide="zap" class="w-5 h-5"></i>
                     </button>
                 </div>
             `).join('');
             lucide.createIcons();
         }
 
-        // Chat Engine Functions
-        function renderChat() {
-            const chatBox = document.getElementById('chat-messages');
-            chatBox.innerHTML = DB.messages.map(m => `
-                <div class="flex ${m.sender === 'user' ? 'justify-start' : 'justify-end'}">
-                    <div class="max-w-[80%] ${m.sender === 'user' ? 'bg-red-600 text-white rounded-2xl rounded-tr-none' : 'bg-slate-800 text-slate-200 rounded-2xl rounded-tl-none'} p-3.5 space-y-1 shadow-lg">
-                        <p class="text-sm leading-relaxed">${m.text}</p>
-                        <span class="text-[10px] opacity-60 block text-left">${m.time}</span>
+        // نظام الشات الذكي
+        function renderChats() {
+            const box = document.getElementById('chat-box');
+            if(DB_CHATS.length === 0) {
+                box.innerHTML = `<div class="text-center text-gray-500 font-bold my-auto"><i data-lucide="shield-check" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>المحادثة مشفرة وآمنة</div>`;
+                return;
+            }
+            
+            box.innerHTML = DB_CHATS.map(m => `
+                <div class="flex w-full ${m.sender === 'user' ? 'justify-end' : 'justify-start'}">
+                    <div class="${m.sender === 'user' ? 'bg-neon text-white rounded-tr-none' : 'bg-gray-800 text-gray-100 rounded-tl-none'} 
+                        px-6 py-4 rounded-2xl max-w-[80%] shadow-lg text-lg relative group">
+                        ${m.text}
+                        <span class="text-[10px] text-white/50 block mt-2 text-left font-mono">${m.time}</span>
                     </div>
                 </div>
             `).join('');
-            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function handleSendMsg(e) {
+        function scrollToBottom() {
+            const box = document.getElementById('chat-box');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function sendChat(e) {
             e.preventDefault();
             const input = document.getElementById('chat-input');
-            const txt = input.value.trim();
-            if(!txt) return;
+            const text = input.value.trim();
+            if(!text) return;
 
-            const timeNow = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-            DB.messages.push({ sender: 'user', text: txt, time: timeNow });
+            // إضافة رسالة المستخدم
+            DB_CHATS.push({ sender: 'user', text, time: new Date().toLocaleTimeString('ar-IQ', {hour: '2-digit', minute:'2-digit'}) });
             input.value = '';
-            
-            saveChat();
-            renderChat();
+            localStorage.setItem('oly_chats', JSON.stringify(DB_CHATS));
+            renderChats();
+            scrollToBottom();
 
-            // Auto Captain Bot Response simulation
+            // محاكاة الكابتن يكتب...
+            const indicator = document.getElementById('typing-indicator');
+            indicator.classList.remove('hidden');
+            scrollToBottom();
+
             setTimeout(() => {
-                const autoReplies = [
-                    "عاش يا بطل! واصل التزامك وسأراجع جدولك اليوم.",
-                    "ممتاز، احرص على شرب 4 لتر ماء والنوم المبكر الليلة.",
-                    "أهلاً بك! تم تسجيل ملاحظتك وسيتم تحديث برنامجك فوراً."
-                ];
-                const reply = autoReplies[Math.floor(Math.random() * autoReplies.length)];
-                DB.messages.push({ sender: 'captain', text: reply, time: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }) });
-                saveChat();
-                renderChat();
-            }, 1200);
+                indicator.classList.add('hidden');
+                const replies = ["بطل! عاشت ايدك استمر.", "ممتاز، راح أعدل جدولك باجر بناءً على هذا التطور.", "دزلي صورة للوجبة مالتك خل اشوف الكمية.", "وحش! لا تنسى الكارديو بعد التمرين."];
+                const reply = replies[Math.floor(Math.random() * replies.length)];
+                
+                DB_CHATS.push({ sender: 'bot', text: reply, time: new Date().toLocaleTimeString('ar-IQ', {hour: '2-digit', minute:'2-digit'}) });
+                localStorage.setItem('oly_chats', JSON.stringify(DB_CHATS));
+                renderChats();
+                scrollToBottom();
+            }, 2000); // تأخير ثانيتين لمحاكاة الكتابة
         }
 
-        function saveChat() {
-            localStorage.setItem('titan_chat', JSON.stringify(DB.messages));
-        }
-
-        function clearChatHistory() {
-            DB.messages = [];
-            saveChat();
-            renderChat();
-        }
-
-        // Admin Engine
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            const pin = document.getElementById('admin-pin-input').value;
-            if(pin === DB.pin) {
-                document.getElementById('admin-pin-input').value = '';
-                router('admin-dashboard');
+        // نظام الإدارة المخفي
+        function authAdmin() {
+            const pass = document.getElementById('sys-pass').value;
+            if(pass === '112233') { // الباسورد الخرافي
+                document.getElementById('sys-pass').value = '';
+                navigate('admin-dash');
             } else {
-                alert('رمز الدخول خاطئ!');
+                alert('ACCESS DENIED! رمز اختراق خاطئ');
             }
         }
 
-        function handleCreateCourse(e) {
-            e.preventDefault();
-            const title = document.getElementById('c-title').value;
-            const price = document.getElementById('c-price').value;
-            const desc = document.getElementById('c-desc').value;
-
-            DB.courses.push({ id: Date.now(), title, price, desc });
-            localStorage.setItem('titan_courses', JSON.stringify(DB.courses));
-            
-            document.getElementById('c-title').value = '';
-            document.getElementById('c-price').value = '';
-            document.getElementById('c-desc').value = '';
-
-            renderCourses();
-            alert('تم نشر الكورس الجديد بنجاح!');
-        }
-
-        function renderAdminData() {
-            const tbody = document.getElementById('subscribers-table-body');
-            tbody.innerHTML = DB.subscribers.map(s => `
-                <tr class="hover:bg-slate-800/30 transition">
-                    <td class="p-3 font-semibold text-white">${s.name}</td>
-                    <td class="p-3">${s.course}</td>
-                    <td class="p-3 text-xs text-slate-400">${s.date}</td>
-                    <td class="p-3"><span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded-full border border-emerald-500/20">${s.status}</span></td>
+        function renderAdmin() {
+            document.getElementById('users-table').innerHTML = DB_USERS.map(u => `
+                <tr class="hover:bg-neon/10 transition cursor-pointer">
+                    <td class="p-4 text-gray-500">${u.id}</td>
+                    <td class="p-4 text-white">${u.name}</td>
+                    <td class="p-4 text-gray-300">${u.course}</td>
+                    <td class="p-4"><span class="bg-green-500/20 text-green-400 border border-green-500/50 px-3 py-1 rounded-full text-xs">${u.status}</span></td>
                 </tr>
             `).join('');
         }
 
-        // Initialize Application
-        window.addEventListener('DOMContentLoaded', () => {
-            renderCourses();
-            lucide.createIcons();
-        });
+        function addNewCourse() {
+            const title = document.getElementById('new-title').value;
+            const price = document.getElementById('new-price').value;
+            const desc = document.getElementById('new-desc').value;
+
+            if(!title || !price || !desc) return alert('املأ البيانات يا كوماندر!');
+
+            DB_COURSES.push({ id: 'C0'+(DB_COURSES.length+1), title, price, desc });
+            localStorage.setItem('oly_courses', JSON.stringify(DB_COURSES));
+            
+            document.getElementById('new-title').value = '';
+            document.getElementById('new-price').value = '';
+            document.getElementById('new-desc').value = '';
+            alert('تم نشر الكورس للسيرفر بنجاح!');
+            navigate('home');
+        }
+
+        // تشغيل البداية
+        navigate('home');
     </script>
 </body>
 </html>
