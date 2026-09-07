@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كورسات الجم | Gym Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar -->
+    <nav class="bg-slate-800 border-b border-slate-700 p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-600">🏋️‍♂️ أبطال الجم</h1>
+            <div class="space-x-4 space-x-reverse">
+                <button onclick="showSection('home')" class="hover:text-red-500 font-semibold">الرئيسية</button>
+                <button onclick="showSection('chat')" class="hover:text-red-500 font-semibold">الشات مع الكابتن</button>
+                <!-- Secret Admin Button -->
+                <button onclick="showSection('admin-login')" class="opacity-20 hover:opacity-100 text-xs text-gray-400 border border-gray-600 px-2 py-1 rounded">إدارة</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="max-w-4xl mx-auto p-6 flex-1 w-full">
+
+        <!-- 1. Home Section -->
+        <section id="home" class="space-y-6">
+            <div class="text-center py-10">
+                <h2 class="text-4xl font-extrabold mb-4">ابني جسمك المثالي مع أفضل الكورسات</h2>
+                <p class="text-slate-400">اختر برنامجك التدريبي والتحق بقروب الأبطال الآن.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="courses-list">
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-bold text-red-500 mb-2">كورس التضخيم الشامل</h3>
+                    <p class="text-slate-300 text-sm mb-4">جدول تمارين 5 أيام + نظام غذائي مع حساب السعرات.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold">$49</span>
+                        <button onclick="showSection('chat')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-bold text-sm">اشترك الآن</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Chat Section -->
+        <section id="chat" class="hidden">
+            <div class="bg-slate-800 rounded-lg overflow-hidden border border-slate-700 flex flex-col h-[500px]">
+                <div class="bg-red-600 p-4 font-bold text-center">المحادثة المباشرة مع الكابتن 💬</div>
+                <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-3">
+                    <div class="bg-slate-700 p-3 rounded-lg max-w-[80%] text-right">هلا أبطال! شلون التزامك بالدايت والتمارين اليوم؟</div>
+                </div>
+                <div class="p-3 bg-slate-900 flex gap-2 border-t border-slate-700">
+                    <input type="text" id="chat-input" placeholder="اكتب رسالتك للكابتن..." class="flex-1 p-2 rounded bg-slate-800 border border-slate-700 text-white outline-none">
+                    <button onclick="sendMessage()" class="bg-red-600 px-5 rounded font-bold hover:bg-red-700">إرسال</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Secret Admin Login Section -->
+        <section id="admin-login" class="hidden">
+            <div class="max-w-md mx-auto bg-slate-800 p-6 rounded-lg border border-slate-700 space-y-4">
+                <h2 class="text-xl font-bold text-center">دخول لوحة التحكم المخفية</h2>
+                <input type="password" id="admin-pin" placeholder="أدخل رمز المرور (الرمز: 9988)" class="w-full p-2 bg-slate-700 rounded border border-slate-600 text-white outline-none">
+                <button onclick="checkAdminPass()" class="w-full bg-red-600 hover:bg-red-700 py-2 rounded font-bold">دخول</button>
+            </div>
+        </section>
+
+        <!-- 4. Secret Admin Panel Section -->
+        <section id="admin-panel" class="hidden space-y-8">
+            <h2 class="text-2xl font-bold text-red-500">لوحة إدارة الكورسات والمشتركين ⚙️</h2>
+            
+            <!-- Upload Course Form -->
+            <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 space-y-4">
+                <h3 class="text-lg font-bold">إضافة كورس جديد</h3>
+                <input type="text" id="course-title" placeholder="اسم الكورس" class="w-full p-2 bg-slate-700 rounded text-white">
+                <input type="text" id="course-price" placeholder="السعر ($)" class="w-full p-2 bg-slate-700 rounded text-white">
+                <button onclick="addCourse()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded font-bold">رفع الكورس</button>
+            </div>
+
+            <!-- Subscribers List -->
+            <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                <h3 class="text-lg font-bold mb-4">قائمة المشتركين</h3>
+                <ul class="divide-y divide-slate-700 text-sm">
+                    <li class="py-2 flex justify-between"><span>أحمد علي (كورس التضخيم)</span><span class="text-green-400">نشط</span></li>
+                    <li class="py-2 flex justify-between"><span>مصطفى حسن (كورس التنشيف)</span><span class="text-green-400">نشط</span></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        function showSection(sectionId) {
+            ['home', 'chat', 'admin-login', 'admin-panel'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            if (!input.value.trim()) return;
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div class="bg-red-600 p-3 rounded-lg max-w-[80%] mr-auto text-left">${input.value}</div>`;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function checkAdminPass() {
+            const pin = document.getElementById('admin-pin').value;
+            if (pin === '9988') {
+                showSection('admin-panel');
+            } else {
+                alert('رمز المرور خاطئ!');
+            }
+        }
+
+        function addCourse() {
+            const title = document.getElementById('course-title').value;
+            const price = document.getElementById('course-price').value;
+            if(!title || !price) return alert('يرجى ملء البيانات');
+            
+            const list = document.getElementById('courses-list');
+            list.innerHTML += `
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <h3 class="text-xl font-bold text-red-500 mb-2">${title}</h3>
+                    <p class="text-slate-300 text-sm mb-4">كورس جديد تم إضافته مؤخراً.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold">$${price}</span>
+                        <button onclick="showSection('chat')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-bold text-sm">اشترك الآن</button>
+                    </div>
+                </div>
+            `;
+            alert('تم نشر الكورس بنجاح!');
+            showSection('home');
+        }
+    </script>
+</body>
+</html>
